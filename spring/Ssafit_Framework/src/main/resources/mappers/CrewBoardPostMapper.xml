@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.ssafit.model.dao.CrewBoardPostDao">
+
+	<insert id="regist" parameterType="CrewBoardPost">
+		INSERT INTO
+		crew_board_post(crew_id, crew_board_post_title,
+		crew_board_post_writer, crew_board_post_content, crew_board_post_img)
+		VALUES(#{crew_id},#{crew_board_post_title},#{crew_board_post_writer},#{crew_board_post_content},#{crew_board_post_img})
+	</insert>
+
+	<select id="getCrewBoardPost" parameterType="int"
+		resultType="CrewBoardPost">
+		SELECT *
+		FROM crew_board_post
+		WHERE crew_id = #{crew_id}
+	</select>
+
+	<select id="getCrewBoardPost1" parameterType="int" resultType="CrewBoardPost">
+		SELECT *
+		FROM crew_board_post
+		WHERE crew_board_post_id = #{crew_board_post_id}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="plusViewCnt">
+		UPDATE crew_board_post
+		SET
+		crew_board_post_view_cnt = crew_board_post_view_cnt+1
+		WHERE crew_board_post_id =
+		#{crew_board_post_id}
+	</update>
+
+
+
+</mapper>

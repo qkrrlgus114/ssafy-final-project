@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.ssafit.model.dao.VideoBoardDao">
+
+	<select id="selectAll" resultType="VideoBoard">
+		SELECT *
+		FROM video_board
+		ORDER
+		BY video_board_reg_date DESC
+	</select>
+
+	<!-- 비디오 등록 -->
+	<insert id="insert" parameterType="VideoBoard">
+		INSERT INTO
+		video_board(video_board_title, video_board_content, youtube_url)
+		VALUES(#{video_board_title},#{video_board_content},#{youtube_url})
+	</insert>
+
+	<update id="update" parameterType="VideoBoard">
+		UPDATE video_board
+		SET
+		video_board_title=#{video_board_title}, youtube_url=#{youtube_url},
+		video_board_content=#{video_board_content}
+		WHERE
+		video_board_id=#{video_board_id}
+	</update>
+
+	<!-- 비디오 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM video_board
+		WHERE
+		video_board_id = #{video_board_id}
+	</delete>
+
+	<select id="selectOne" parameterType="String"
+		resultType="VideoBoard">
+		SELECT *
+		FROM video_board
+		WHERE
+		youtube_url = #{youtube_url}
+	</select>
+
+	<!-- 조회수 증가 -->
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE video_board
+		SET
+		video_board_view_cnt = video_board_view_cnt+1
+		WHERE video_board_id =
+		#{video_board_id}
+	</update>
+
+	<!-- 비디오 하나 가져오기 -->
+	<select id="selectOneVideo" parameterType="int"
+		resultType="VideoBoard">
+		SELECT *
+		FROM video_board
+		WHERE
+		video_board_id =
+		#{video_board_id}
+	</select>
+
+
+	<!-- 조회수 업데이트 없이 비디오 가져오기 -->
+	<select id="selectOneNoUpdateViewCount" parameterType="int"
+		resultType="VideoBoard">
+		SELECT *
+		FROM video_board
+		WHERE video_board_id =
+		#{video_board_id}
+	</select>
+
+	<!-- 검색기능 -->
+	<select id="search" resultType="VideoBoard"
+		parameterType="SearchCondition">
+		SELECT *
+		FROM
+		video_board
+		<!-- 어떤 기준을 가지고 검색을 할거냐!!! -->
+		<if test="key != 'none'">
+			WHERE ${key} LIKE concat('%', #{word}, '%')
+		</if>
+		<!-- 어떤 기준으로 어떤 방향으로 정렬할래? -->
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+	</select>
+
+	<!-- 제목으로 검색 -->
+	<select id="searchVideo" resultType="VideoBoard"
+		parameterType="String">
+		SELECT * FROM video_board
+		WHERE video_board_title LIKE
+		CONCAT('%', #{word}, '%')
+	</select>
+
+	<!-- 중복 확인 -->
+	<select id="duplicationCheck" parameterType="String"
+		resultType="VideoBoard">
+		SELECT *
+		FROM video_board
+		WHERE youtube_url=#{youtube_url}
+	</select>
+
+
+</mapper>

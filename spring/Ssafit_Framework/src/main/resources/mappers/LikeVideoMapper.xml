@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.ssafit.model.dao.LikeVideoDao">
+
+	<select id="selectAll" resultType="LikeVideo">
+		SELECT *
+		FROM video_board_like
+	</select>
+	
+	<insert id="insert" parameterType="LikeVideo">
+		INSERT INTO video_board_like
+		VALUES(#{like_id}, #{user_id}, #{video_board_id})
+	</insert>
+	
+	<delete id="delete" parameterType="LikeVideo">
+		DELETE FROM video_board_like
+		WHERE user_id = #{user_id} AND video_board_id = #{video_board_id}
+	</delete>
+	
+	
+	<!-- 좋아요 수 +1 -->
+	<update id="plusLikeCnt" parameterType="int">
+		UPDATE video_board
+		SET
+		video_board_like_cnt= video_board_like_cnt+1
+		WHERE
+		video_board_id = #{video_board_id}
+	</update>
+	
+	<!-- 좋아요 수 -1 -->
+	<update id="minusLikeCnt" parameterType="int">
+		UPDATE video_board
+		SET
+		video_board_like_cnt= video_board_like_cnt-1
+		WHERE
+		video_board_id = #{video_board_id}
+	</update>
+</mapper>

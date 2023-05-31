@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.ssafit.model.dao.FollowDao">
+
+	<!-- 팔로우 등록 -->
+	<insert id="insert" parameterType="Map" >
+		INSERT INTO follow (from_user, to_user)
+		VALUES(#{myId}, #{targetId})
+	</insert>
+	
+	<!-- 중복 팔로우 체크 -->
+	<select id="check" parameterType="Map" resultType="Follow">
+		SELECT *
+		FROM follow
+		WHERE from_user=#{myId} AND to_user=#{targetId}
+	</select>
+	
+	<!-- 팔로우 해지 -->
+	<delete id="delete" parameterType="Map" >
+		DELETE FROM follow
+		WHERE from_user=#{myId} AND to_user=#{targetId}
+	</delete>
+	
+	<!-- 나를 팔로우 하는 사람들 가져오기 -->
+	<select id="selectFollower" parameterType="String" resultType="Follow">
+		SELECT *
+		FROM follow
+		WHERE to_user=#{myId};
+	</select>
+	
+	<!-- 내가 팔로우 하는 사람들 가져오기 -->
+	<select id="selectFollowings" parameterType="String" resultType="Follow">
+		SELECT *
+		FROM follow
+		WHERE from_user=#{myId};
+	</select>
+</mapper>

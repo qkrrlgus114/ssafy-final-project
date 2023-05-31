@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.ssafit.model.dao.UserDao">
+	<select id="select" parameterType="String" resultType="User">
+		SELECT *
+		FROM user
+		WHERE user_id=#{user_id} AND user_pass=#{user_pass}
+	</select>
+
+	<insert id="regist" parameterType="User">
+		INSERT INTO user
+		VALUES(#{user_id}, #{user_pass},
+		#{user_name},#{user_phone_number},#{user_email},#{user_athletic_career},#{user_profile_img},
+		#{user_is_admin})
+	</insert>
+
+	<select id="selectAll" resultType="User">
+		SELECT *
+		FROM user
+	</select>
+
+	<delete id="delete" parameterType="map">
+		DELETE
+		FROM user
+		WHERE
+		user_id=#{user_id} AND user_pass=#{user_pass}
+	</delete>
+
+	<insert id="addImgage" parameterType="User">
+		INSERT INTO user
+	</insert>
+
+	<select id="selectOne" parameterType="String" resultType="User">
+		SELECT
+		*
+		FROM user
+		WHERE user_id = #{user_id}
+	</select>
+
+	<update id="modify" parameterType="User">
+		UPDATE user
+		SET
+		user_pass=#{user_pass}, user_name=#{user_name},
+		user_phone_number=#{user_phone_number},
+		user_athletic_career=#{user_athletic_career},
+		user_profile_img=#{user_profile_img}
+		WHERE user_id=#{user_id}
+	</update>
+
+	<select id="searchId" parameterType="String" resultType="User">
+		SELECT *
+		FROM user
+		WHERE user_name=#{user_name} AND
+		user_phone_number=#{user_phone_number}
+	</select>
+
+	<select id="getUserInfo" parameterType="User" resultType="User">
+		SELECT
+		* FROM user
+		WHERE user_id=#{user_id} AND user_name=#{user_name} AND
+		user_email=#{user_email} AND
+		user_phone_number=#{user_phone_number}
+	</select>
+
+	<select id="checkId" parameterType="String" resultType="User">
+		SELECT *
+		FROM user
+		WHERE user_id=#{user_id}
+	</select>
+
+	<select id="checkEmail" parameterType="String" resultType="User">
+		SELECT * FROM user
+		WHERE user_email=#{user_email}
+	</select>
+
+	<select id="checkPNum" parameterType="String" resultType="User">
+		SELECT	
+		* FROM user
+		WHERE user_phone_number=#{user_phone_number}
+	</select>
+
+</mapper> 

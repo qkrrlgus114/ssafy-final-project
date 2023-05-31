@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.ssafit.model.dao.VideoReviewDao">
+
+	<select id="selectAll" parameterType="int"
+		resultType="VideoReview">
+		SELECT *
+		FROM video_board_reviews
+		WHERE
+		video_board_id=#{video_board_id}
+	</select>
+
+	<insert id="insert" parameterType="VideoReview"
+		useGeneratedKeys="true" keyProperty="review_id">
+		INSERT INTO
+		video_board_reviews(video_board_id, user_id, review_content)
+		VALUES(#{video_board_id},#{user_id},#{review_content});
+	</insert>
+
+	<select id="selectAfterInsert" parameterType="VideoReview"
+		resultType="VideoReview">
+		SELECT * FROM video_board_reviews WHERE review_id = LAST_INSERT_ID();
+	</select>
+
+	<select id="selectOne" parameterType="int"
+		resultType="VideoReview">
+		SELECT *
+		FROM video_reviews
+		WHERE review_no = #{review_no}
+		AND video_no = #{video_no}
+	</select>
+
+	<update id="updateViewCount" parameterType="int">
+		UPDATE video_reviews
+		SET review_view_count = review_view_count+1
+		WHERE review_no =
+		#{review_no}
+	</update>
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM video_board_reviews
+		WHERE
+		review_id = #{review_id}
+	</delete>
+
+	<update id="update" parameterType="VideoReview">
+		UPDATE
+		video_reviews
+		SET
+		review_title=#{review_title}, review_content=#{review_content}
+		WHERE
+		review_no =
+		#{review_no}
+	</update>
+
+	<select id="selectOneNoUpdateViewCount" parameterType="int"
+		resultType="VideoReview">
+		SELECT *
+		FROM video_reviews
+		WHERE review_no = #{review_no}
+	</select>
+</mapper>

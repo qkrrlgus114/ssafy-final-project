@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 UserRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.ssafit.model.dao.CrewDao">
+
+	<insert id="regist" parameterType="Crew">
+		INSERT INTO crew(crew_name,
+		crew_leader, crew_thema, user_id, crew_content,
+		crew_max_members,crew_current_members, crew_img)
+		VALUES(#{crew_name},
+		#{crew_leader},#{crew_thema},#{user_id},#{crew_content},#{crew_max_members},#{crew_current_members},#{crew_img})
+	</insert>
+
+	<select id="selectAll" resultType="Crew">
+		SELECT *
+		FROM crew
+	</select>
+
+	<select id="searchCrew" resultType="Crew" parameterType="String">
+		SELECT *
+		FROM crew
+		WHERE (crew_name LIKE CONCAT ('%', #{word}, '%') OR
+		crew_thema LIKE CONCAT
+		('%', #{word}, '%') OR crew_content LIKE CONCAT
+		('%', #{word}, '%'))
+		AND crew_recruit_status=1
+	</select>
+
+	<select id="getCrewId" resultType="int" parameterType="Crew">
+		SELECT
+		crew_id FROM crew
+		WHERE crew_name=#{crew_name} AND
+		crew_leader=#{crew_leader} AND user_id=#{user_id}
+	</select>
+
+	<insert id="registCrewMember" parameterType="CrewMember">
+		INSERT INTO
+		crew_member
+		VALUES(#{member_id}, #{crew_id}, #{crew_join_content})
+	</insert>
+
+	<insert id="registCrewBoard" parameterType="CrewBoard">
+		INSERT INTO
+		crew_board(crew_id, crew_name)
+		VALUES(#{crew_id}, #{crew_name})
+	</insert>
+
+	<select id="registCheck" resultType="CrewMember"
+		parameterType="map">
+		SELECT
+		*
+		FROM crew_member
+		WHERE crew_id = #{crew_id} AND
+		member_id =#{user_id}
+	</select>
+
+	<update id="plusCrewMember" parameterType="int">
+		UPDATE crew
+		SET
+		crew_current_members = crew_current_members + 1
+		WHERE crew_id =
+		#{crew_id}
+	</update>
+
+	<select id="selectOne" parameterType="int" resultType="Crew">
+		SELECT *
+		FROM crew
+		WHERE crew_id = #{crew_id}
+	</select>
+
+	<update id="updateCrewRecruitStatus" parameterType="int">
+		UPDATE crew
+		SET crew_recruit_status = 0
+		WHERE crew_id = #{crew_id}
+	</update>
+
+	<select id="getMyCrewId" parameterType="String" resultType="int">
+		SELECT crew_id
+		FROM crew_member
+		WHERE member_id=#{user_id}
+	</select>
+
+	<select id="getMyCrews" parameterType="int" resultType="Crew">
+		SELECT *
+		FROM crew
+		WHERE crew_id = #{crew_id}
+	</select>
+
+</mapper>
