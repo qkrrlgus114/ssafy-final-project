@@ -15,3 +15,7 @@
 4. REST API 사용
 
 시간이 부족해서 의도했던 최종 완성본은 아니지만 최대한 구현하려고 노력했습니다.
+
+
+노션 포트폴리오
+https://shrub-find-729.notion.site/FITOPIA-5faeb89572e445c0a0947f29aea8be67?pvs=4
