@@ -35,21 +35,6 @@
                 v-else
                 @click="cancleLikeUpdate"
               >
-                <!-- <b-button
-                class="like-button"
-                variant="outline-light"
-                v-if="!isLiked"
-                @click="likeUpdate"
-              >
-                <i class="fa-regular fa-heart" style="color: #051e48" ></i>
-              </b-button>
-
-              <b-button
-                class="like-button"
-                variant="outline-light"
-                v-else
-                @click="cancleLikeUpdate"
-              > -->
                 <i class="fa-solid fa-heart" style="color: #ff0040"></i>
               </b-button>
 
@@ -66,7 +51,7 @@
         </b-card>
       </div>
       <div style="display: flex; justify-content: center">
-        <div class="button-container">
+        <div v-if="adminUser" class="button-container">
           <b-button
             variant="dark"
             style="margin: 5px; width: 70px"
@@ -82,15 +67,6 @@
             삭제
           </b-button>
         </div>
-
-        <!-- <div class="button-container">
-          <b-button class="admin-button" v-if="adminUser" @click="updateVideo">
-            수정
-          </b-button>
-          <b-button class="admin-button" v-if="adminUser" @click="deleteVideo">
-            삭제
-          </b-button>
-        </div> -->
       </div>
     </div>
   </div>

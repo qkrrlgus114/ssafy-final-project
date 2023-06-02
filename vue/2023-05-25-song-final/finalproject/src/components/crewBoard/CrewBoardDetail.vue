@@ -12,13 +12,7 @@ export default {
   components: {
     BoardPostViewDetail,
   },
-  async created() {
-    // await this.$store.dispatch(
-    //   "getBoardPost",
-    //   this.$route.params.crew_board_post_id
-    // );
-    // await this.$store.dispatch("getReviews", this.$route.params.video_board_id);s
-  },
+  async created() {},
 };
 </script>
 

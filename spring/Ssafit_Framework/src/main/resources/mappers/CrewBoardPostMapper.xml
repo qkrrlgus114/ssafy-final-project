@@ -25,7 +25,7 @@
 	</select>
 	
 	<!-- 조회수 증가 -->
-	<update id="plusViewCnt">
+	<update id="plusViewCnt" parameterType="int">
 		UPDATE crew_board_post
 		SET
 		crew_board_post_view_cnt = crew_board_post_view_cnt+1

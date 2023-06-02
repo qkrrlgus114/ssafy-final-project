@@ -60,7 +60,7 @@ public class CrewBoardPostController {
 	@GetMapping("get/{crew_board_post_id}")
 	public ResponseEntity<?> getCrewBoardPostOne(@PathVariable int crew_board_post_id){
 		try {
-			CrewBoardPost post = cbpService.getCrewBoardPost1(crew_board_post_id); 
+			CrewBoardPost post = cbpService.getCrewBoardPost1(crew_board_post_id);
 			if(post == null) {
 				return new ResponseEntity<>("NO", HttpStatus.BAD_REQUEST);
 			}else {

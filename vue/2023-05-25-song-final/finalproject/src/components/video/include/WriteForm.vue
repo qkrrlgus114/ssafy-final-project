@@ -37,7 +37,7 @@
         ></textarea>
       </div>
 
-      <div class="button-container">
+      <div v-if="type == 'update'" class="button-container">
         <b-button
           variant="dark"
           style="margin: 5px; width: 70px"
@@ -50,22 +50,25 @@
           style="margin: 5px; width: 70px"
           @click="moveList"
         >
-          삭제
+          취소
         </b-button>
       </div>
-
-      <!-- <b-button variant="dark" v-if="type == 'create'" @click="registVideo"
-        >등록</b-button
-      >
-      <b-button variant="dark" v-if="type == 'update'" @click="updateVideo"
-        >수정</b-button
-      > -->
-      <button v-if="type == 'create'" @click="registVideo">등록</button>
-      <button v-if="type == 'update'" @click="updateVideo">수정</button>
-      <b-button variant="dark" v-if="type == 'update'" @click="moveList"
-        >삭제</b-button
-      >
-      <button @click="moveList">목록</button>
+      <div v-if="type == 'create'" class="button-container">
+        <b-button
+          variant="dark"
+          style="margin: 5px; width: 70px"
+          @click="registVideo"
+        >
+          등록
+        </b-button>
+        <b-button
+          variant="dark"
+          style="margin: 5px; width: 70px"
+          @click="moveList"
+        >
+          취소
+        </b-button>
+      </div>
     </div>
   </div>
 </template>

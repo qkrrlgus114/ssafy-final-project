@@ -69,52 +69,32 @@ export default {
   },
   computed: {
     ...mapState(["post", "loginUser"]),
-    // isLiked() {
-    //   const userId = this.loginUser.user_id;
-    //   const videoId = this.video.video_board_id;
-    //   return this.like_video.some(
-    //     (like) => like.user_id === userId && like.video_board_id === videoId
-    //   );
-    // },
   },
   methods: {
     registPost() {
       this.$router.push({ name: "post-create" });
     },
-    // // 좋아요
-    // async likeUpdate() {
-    //   let like = {
-    //     user_id: this.loginUser.user_id,
-    //     video_board_id: this.video.video_board_id,
-    //   };
-    //   await this.$store.dispatch("updateLikeCnt", like);
-    //   await this.$store.dispatch("getVideoLike");
-    // },
-    // //좋아요 취소
-    // async cancleLikeUpdate() {
-    //   let like = {
-    //     user_id: this.loginUser.user_id,
-    //     video_board_id: this.video.video_board_id,
-    //   };
-    //   await this.$store.dispatch("cancleUpdateLikeCnt", like);
-    //   await this.$store.dispatch("getVideoLike");
-    // },
   },
   created() {
+    console.log(this.$route.params.crew_board_post_id);
     axios({
       url: `http://localhost:9999/crews/board/post/get/${this.$route.params.crew_board_post_id}`,
       method: "GET",
       params: this.$route.params.crew_board_post_id,
-    }).then((res) => {
-      this.crew_board_post_id = res.data.crew_board_post_id;
-      this.crew_id = res.data.crew_id;
-      this.crew_board_post_title = res.data.crew_board_post_title;
-      this.crew_board_post_writer = res.data.crew_board_post_writer;
-      this.crew_board_post_content = res.data.crew_board_post_content;
-      this.crew_board_post_img = res.data.crew_board_post_img;
-      this.crew_board_post_reg_date = res.data.crew_board_post_reg_date;
-      this.crew_board_post_view_cnt = res.data.crew_board_post_view_cnt;
-    });
+    })
+      .then((res) => {
+        this.crew_board_post_id = res.data.crew_board_post_id;
+        this.crew_id = res.data.crew_id;
+        this.crew_board_post_title = res.data.crew_board_post_title;
+        this.crew_board_post_writer = res.data.crew_board_post_writer;
+        this.crew_board_post_content = res.data.crew_board_post_content;
+        this.crew_board_post_img = res.data.crew_board_post_img;
+        this.crew_board_post_reg_date = res.data.crew_board_post_reg_date;
+        this.crew_board_post_view_cnt = res.data.crew_board_post_view_cnt;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 </script>

@@ -143,6 +143,7 @@ CREATE TABLE IF NOT EXISTS `ssafit`.`crew_board_post` (
   `crew_board_post_content` VARCHAR(500) NOT NULL,
   `crew_board_post_img` VARCHAR(1000) NULL,
   `crew_board_post_reg_date` TIMESTAMP DEFAULT now(),
+  `crew_board_post_view_cnt` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`crew_board_post_id`),
   CONSTRAINT `fk_crew_id`
     FOREIGN KEY (`crew_id`)

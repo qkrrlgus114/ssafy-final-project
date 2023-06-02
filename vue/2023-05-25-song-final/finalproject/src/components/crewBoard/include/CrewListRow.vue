@@ -2,8 +2,6 @@
   <div class="post-list">
     <div class="post">
       <div class="id">{{ index }}</div>
-      <!-- <div class="title">{{ crew_board_post_title }}</div> -->
-
       <div class="title">
         <router-link
           :to="{
