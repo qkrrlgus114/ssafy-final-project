@@ -18,4 +18,4 @@
 
 
 노션 포트폴리오
-https://shrub-find-729.notion.site/FITOPIA-5faeb89572e445c0a0947f29aea8be67?pvs=4
+https://shrub-find-729.notion.site/FITOPIA-5faeb89572e445c0a0947f29aea8be67?pvs=4 (추후 공개)
